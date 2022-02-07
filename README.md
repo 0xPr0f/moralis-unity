@@ -74,6 +74,7 @@ code summary :
         OutPutToken.text = JToken.Parse(NFTbalance).ToString(Formatting.Indented);
 
     }
+    
     ```
     
-    Watch full video : https://youtu.be/daDiqU7UkHc
+   
