@@ -24,6 +24,8 @@ code summary :
 `SendTransactionAsync` this takes in a lot a param but you basically would want ("the person address on the dapp", "the receiver address","the amount")  for a transfer function, and maybe you can play with gas a little bit
 ```
 
+<--------------------------------------------------------------------------------------------------------->
+
 ```sh
 Calling web3Api functions in unity
 ```
