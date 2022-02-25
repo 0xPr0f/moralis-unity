@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Moralis.Web3Api.Models;
 using MoralisWeb3ApiSdk;
 using Nethereum.Contracts;
 using UnityEngine;
@@ -7,11 +8,14 @@ using UnityEngine;
 public class SendCustomToken : MonoBehaviour
 {
     public string ABI;
+    public RunContractDto runContractDto;
     /*
      * ABI
      * 
      [ 	{ 		"inputs": [], 		"stateMutability": "nonpayable", 		"type": "constructor" 	}, 	{ 		"anonymous": false, 		"inputs": [ 			{ 				"indexed": true, 				"internalType": "address", 				"name": "owner", 				"type": "address" 			}, 			{ 				"indexed": true, 				"internalType": "address", 				"name": "spender", 				"type": "address" 			}, 			{ 				"indexed": false, 				"internalType": "uint256", 				"name": "value", 				"type": "uint256" 			} 		], 		"name": "Approval", 		"type": "event" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "spender", 				"type": "address" 			}, 			{ 				"internalType": "uint256", 				"name": "amount", 				"type": "uint256" 			} 		], 		"name": "approve", 		"outputs": [ 			{ 				"internalType": "bool", 				"name": "", 				"type": "bool" 			} 		], 		"stateMutability": "nonpayable", 		"type": "function" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "spender", 				"type": "address" 			}, 			{ 				"internalType": "uint256", 				"name": "subtractedValue", 				"type": "uint256" 			} 		], 		"name": "decreaseAllowance", 		"outputs": [ 			{ 				"internalType": "bool", 				"name": "", 				"type": "bool" 			} 		], 		"stateMutability": "nonpayable", 		"type": "function" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "spender", 				"type": "address" 			}, 			{ 				"internalType": "uint256", 				"name": "addedValue", 				"type": "uint256" 			} 		], 		"name": "increaseAllowance", 		"outputs": [ 			{ 				"internalType": "bool", 				"name": "", 				"type": "bool" 			} 		], 		"stateMutability": "nonpayable", 		"type": "function" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "to", 				"type": "address" 			}, 			{ 				"internalType": "uint256", 				"name": "amount", 				"type": "uint256" 			} 		], 		"name": "transfer", 		"outputs": [ 			{ 				"internalType": "bool", 				"name": "", 				"type": "bool" 			} 		], 		"stateMutability": "nonpayable", 		"type": "function" 	}, 	{ 		"anonymous": false, 		"inputs": [ 			{ 				"indexed": true, 				"internalType": "address", 				"name": "from", 				"type": "address" 			}, 			{ 				"indexed": true, 				"internalType": "address", 				"name": "to", 				"type": "address" 			}, 			{ 				"indexed": false, 				"internalType": "uint256", 				"name": "value", 				"type": "uint256" 			} 		], 		"name": "Transfer", 		"type": "event" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "from", 				"type": "address" 			}, 			{ 				"internalType": "address", 				"name": "to", 				"type": "address" 			}, 			{ 				"internalType": "uint256", 				"name": "amount", 				"type": "uint256" 			} 		], 		"name": "transferFrom", 		"outputs": [ 			{ 				"internalType": "bool", 				"name": "", 				"type": "bool" 			} 		], 		"stateMutability": "nonpayable", 		"type": "function" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "owner", 				"type": "address" 			}, 			{ 				"internalType": "address", 				"name": "spender", 				"type": "address" 			} 		], 		"name": "allowance", 		"outputs": [ 			{ 				"internalType": "uint256", 				"name": "", 				"type": "uint256" 			} 		], 		"stateMutability": "view", 		"type": "function" 	}, 	{ 		"inputs": [ 			{ 				"internalType": "address", 				"name": "account", 				"type": "address" 			} 		], 		"name": "balanceOf", 		"outputs": [ 			{ 				"internalType": "uint256", 				"name": "", 				"type": "uint256" 			} 		], 		"stateMutability": "view", 		"type": "function" 	}, 	{ 		"inputs": [], 		"name": "decimals", 		"outputs": [ 			{ 				"internalType": "uint8", 				"name": "", 				"type": "uint8" 			} 		], 		"stateMutability": "view", 		"type": "function" 	}, 	{ 		"inputs": [], 		"name": "name", 		"outputs": [ 			{ 				"internalType": "string", 				"name": "", 				"type": "string" 			} 		], 		"stateMutability": "view", 		"type": "function" 	}, 	{ 		"inputs": [], 		"name": "symbol", 		"outputs": [ 			{ 				"internalType": "string", 				"name": "", 				"type": "string" 			} 		], 		"stateMutability": "view", 		"type": "function" 	}, 	{ 		"inputs": [], 		"name": "totalSupply", 		"outputs": [ 			{ 				"internalType": "uint256", 				"name": "", 				"type": "uint256" 			} 		], 		"stateMutability": "view", 		"type": "function" 	} ]
      */
+
+   
     public async void sendCustomToken()
     {
         MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0xfF75215204108992CFc2e902E560D461776BC906");
@@ -20,4 +24,12 @@ public class SendCustomToken : MonoBehaviour
         string jsonresult = await f.SendTransactionAsync("0x37Ad540C876FceCf80090493F02068b115dDf8B6", playerAddress, 20);
         print(jsonresult);
     }
+
+
+   /* public async void ReadContractEvent()
+    {
+
+        List<LogEvent> logEvents = await MoralisInterface.GetClient().Web3Api.Native.GetContractEvents("0xF9c0fb77D813aF3acD17aB7AeFfe98a9d66C4B64", "Deposit", runContractDto, ChainList.mumbai);
+        print(logEvents);
+    } */
 }

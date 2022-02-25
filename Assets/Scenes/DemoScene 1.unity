@@ -179,8 +179,16 @@ PrefabInstance:
       value: WalletConnect
       objectReference: {fileID: 0}
     - target: {fileID: 5175095894888145821, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
+      propertyPath: chainId
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175095894888145821, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
       propertyPath: AppData.Name
       value: Moralis Unity Features
+      objectReference: {fileID: 0}
+    - target: {fileID: 5175095894888145821, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
+      propertyPath: DefaultWallet
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5175095894888145821, guid: ce99fd52594d5e54f972689a083ac409, type: 3}
       propertyPath: connectOnAwake
@@ -1812,12 +1820,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moralisController: {fileID: 302390320}
-  authenticationButton: {fileID: 787958077}
-  logoutButton: {fileID: 2059631859}
+  AuthenticationButton: {fileID: 787958077}
   walletConnect: {fileID: 71058177}
   qrMenu: {fileID: 4278207833480748682}
   androidMenu: {fileID: 486506178379430289}
   iosMenu: {fileID: 1065161406750258221}
+  joystick: {fileID: 0}
 --- !u!1 &1512139774
 GameObject:
   m_ObjectHideFlags: 0
