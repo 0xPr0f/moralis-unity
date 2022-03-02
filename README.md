@@ -17,7 +17,7 @@ This is moralis unity query where we call different api methods.
 ```
 
 ```cs
- // sending custom erc20cc specifying gas
+ // sending custom erc20 specifying gas
  public async void sendCustomTokenwithcustomgas()
  {
      MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0xfF75215204108992CFc2e902E560D461776BC906");
