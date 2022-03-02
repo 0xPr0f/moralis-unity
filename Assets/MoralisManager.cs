@@ -11,6 +11,7 @@ using Newtonsoft.Json;
 public class MoralisManager : MonoBehaviour
 {
     public InputField AddressText;
+    
     public InputField TokenText;
     public TMP_InputField OutPutAddress;
     public TMP_InputField OutPutToken;
