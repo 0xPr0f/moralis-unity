@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 public class MoralisManager : MonoBehaviour
 {
     public InputField AddressText;
-    
+
     public InputField TokenText;
     public TMP_InputField OutPutAddress;
     public TMP_InputField OutPutToken;
@@ -73,6 +73,7 @@ public class MoralisManager : MonoBehaviour
     }
     public async void NFTmetadata()
     {
+        
         OutPutToken.text = "Fetching All Contract metadata";
         NftContractMetadata metadata = await MoralisInterface.GetClient().Web3Api.Token.GetNFTMetadata(TokenText.text, ChainList.mumbai);
         string NFTbalance = metadata.ToJson();
