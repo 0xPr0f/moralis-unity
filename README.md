@@ -106,3 +106,22 @@ This is moralis unity query where we call different api methods.
 
     }
 ```
+
+# Fixing ipfs link for images
+
+```cs
+    public string FixImageUri(string imageuri)
+    {
+        if (imageuri.StartsWith("ipfs://"))
+        {
+            return imageuri.Replace("ipfs://", "https://ipfs.moralis.io:2053/ipfs/");
+        }
+        return imageuri;
+
+    }
+    public void call()
+    {
+      string result =  FixImageUri("ipfs://QmW5qHWBfE7yH8LFkeCmDNjBRPGEWqYDqjHgaLiQBDsuQg/4731.png");
+        print(result);
+    }
+```
