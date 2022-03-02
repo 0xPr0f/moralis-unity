@@ -1,42 +1,41 @@
 # Moralis-Unity
 
-This is moralis unity web3api query where we call different api menthods with one line of code.
+This is moralis unity query where we call different api methods.
 
-code summary :
-
-# sending custom token with smart contract function
-
-```sh
-   using smart contracts in unity
-```
+# sending custom token with smart contract function (with and without gas)
 
 ```cs
-    public async void sendtoken()
+    // sending custom erc20 with out specifying gas
+    public async void sendCustomTokenwithoutcustomgas()
     {
-        MoralisInterface.InsertContractInstance("LOL", ABI,"rinkeby", "0xfF75215204108992CFc2e902E560D461776BC906");
-        Function f = MoralisInterface.EvmContractFunctionInstance("LOL","rinkeby", "transfer");
+        MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0xfF75215204108992CFc2e902E560D461776BC906");
+        Function f = MoralisInterface.EvmContractFunctionInstance("LOL", "rinkeby", "transfer");
         string playerAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
-        string jsonresult = await f.SendTransactionAsync("0x37Ad540C876FceCf80090493F02068b115dDf8B6", playerAddress,20);
-        print(jsonresult);
+        string result = await f.SendTransactionAsync("0x37Ad540C876FceCf80090493F02068b115dDf8B6", playerAddress, 20);
+        print(result);
     }
 ```
 
-```sh
-`playerAddress` this is the receiver (and indeed the address recieved the token)
-`SendTransactionAsync` this takes in a lot a param but you basically would want ("the person address on the dapp", "the receiver address","the amount")  for a transfer function, and maybe you can play with gas a little bit
+```cs
+ // sending custom erc20cc specifying gas
+ public async void sendCustomTokenwithcustomgas()
+ {
+     MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0xfF75215204108992CFc2e902E560D461776BC906");
+     // Set gas estimate
+     HexBigInteger gas = new HexBigInteger(80000);
+     string recieverAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
+     string senderAddress = "0x37Ad540C876FceCf80090493F02068b115dDf8B6";
+     object[] pars = { recieverAddress, 20};
+     // Call the contract to claim the NFT reward.
+     string result = await MoralisInterface.SendEvmTransactionAsync("LOL", "rinkeby", "transfer", senderAddress, gas, new HexBigInteger("0x0"), pars);
+
+     print(result);
+ }
 ```
 
-<--------------------------------------------------------------------------------------------------------->
-
-# web3Api endpoints 
-
-```sh
-Calling web3Api functions in unity
-```
+# web3Api endpoints
 
 ```cs
-
-
     public async void GetNFT()
     {
         OutPutAddress.text = "Fetching your NFTs...";
