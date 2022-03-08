@@ -2,7 +2,7 @@
 
 This is moralis unity query where we call different api methods.
 
-# sending custom token with smart contract function (with and without gas)
+## sending custom token with smart contract function (with and without gas)
 
 ```cs
     // sending custom erc20 with out specifying gas
@@ -33,7 +33,7 @@ This is moralis unity query where we call different api methods.
  }
 ```
 
-# web3Api endpoints
+## web3Api endpoints
 
 ```cs
     public async void GetNFT()
@@ -106,8 +106,38 @@ This is moralis unity query where we call different api methods.
 
     }
 ```
+## Custom Objects
 
-# Fixing ipfs link for images
+```cs
+public class Character : MoralisObject
+{
+    public int Strength { get; set; }
+    public int Level { get; set; }
+    public string Name { get; set; }
+    public string Skill { get; set; }
+    public List<string> Bag { get; set; }
+
+    public Character() : base("Character")
+    {
+        Bag = new List<string>();
+    }
+}
+```
+## Saving objects to the database
+```cs
+public async void SaveObjectToDB()
+    {
+        Character character = MoralisInterface.GetClient().Create<Character>();
+        character.Name = "Morphis";
+        character.Strength = 100;
+        character.Level = 80;
+        character.Skill = "Strength";
+        character.Bag.Add("Axe of Doom");
+        character.Bag.Add("moralisSDK");
+        await character.SaveAsync();
+    }
+```
+## Fixing ipfs link for images
 
 ```cs
     public string FixImageUri(string imageuri)
