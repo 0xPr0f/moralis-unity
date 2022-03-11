@@ -2,7 +2,7 @@
 
 This is moralis unity query where we call different api methods.
 
-## sending custom token with smart contract function (with and without gas)
+## sending custom token with smart contract function without gas
 
 ```cs
     // sending custom erc20 with out specifying gas
@@ -15,7 +15,7 @@ This is moralis unity query where we call different api methods.
         print(result);
     }
 ```
-
+## sending custom token with smart contract function with gas
 ```cs
  // sending custom erc20 specifying gas
  public async void sendCustomTokenwithcustomgas()
