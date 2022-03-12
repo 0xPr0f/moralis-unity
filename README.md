@@ -33,7 +33,7 @@ This is moralis unity query where we call different api methods.
  }
 ```
 
-## web3Api endpoints
+## web3Api methods
 
 ```cs
     public async void GetNFT()
@@ -135,6 +135,18 @@ public async void SaveObjectToDB()
         character.Bag.Add("Axe of Doom");
         character.Bag.Add("moralisSDK");
         await character.SaveAsync();
+    }
+```
+## Retrieving from database
+```cs
+public async void RetrieveObjectFromDB()
+    {
+        MoralisQuery<Character> character = MoralisInterface.GetClient().Query<Character>().WhereEqualTo("Level", 80);
+        IEnumerable<Character> result = await character.FindAsync();
+        foreach(Character c in result)
+        {
+            print("The warlord is " + c.Name + " with" + c.Skill);
+        }
     }
 ```
 ## Fixing ipfs link for images

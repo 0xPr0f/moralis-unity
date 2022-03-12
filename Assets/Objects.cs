@@ -38,9 +38,9 @@ public class Objects : MonoBehaviour
     {
         MoralisQuery<Character> character = MoralisInterface.GetClient().Query<Character>().WhereEqualTo("Level", 80);
         IEnumerable<Character> result = await character.FindAsync();
-        Character response = JsonConvert.DeserializeObject<Character>(result.ToString());
-        print(response);
-        print(result);
-        print(result.ToString());
+        foreach(Character c in result)
+        {
+            print("The warlord is " + c.Name + " with" + c.Skill);
+        }
     }
 }
