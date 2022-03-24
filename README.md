@@ -2,6 +2,8 @@
 
 This is moralis unity query where we call different api methods.
 
+## if this project / readme helped you, give it a star
+
 ## sending custom token with smart contract function without gas
 
 ```cs
@@ -207,3 +209,5 @@ public async void SendRawETH()
         print(result);
     }
 ```
+
+
