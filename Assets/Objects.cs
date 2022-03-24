@@ -43,4 +43,5 @@ public class Objects : MonoBehaviour
             print("The warlord is " + c.Name + " with" + c.Skill);
         }
     }
+  
 }

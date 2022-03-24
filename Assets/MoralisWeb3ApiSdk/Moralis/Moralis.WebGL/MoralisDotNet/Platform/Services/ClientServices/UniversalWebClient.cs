@@ -3,17 +3,13 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
-using System.Net.Http;
 using System.Text;
-using System.Threading;
 using Moralis.WebGL.Platform.Abstractions;
-using Moralis.WebGL.Platform.Services.Models;
-using Moralis.WebGL.Platform.Utilities;
-//using BCLWebClient = System.Net.Http.HttpClient;
 using WebRequest = Moralis.WebGL.Platform.Services.Models.WebRequest;
 using UnityEngine;
 using UnityEngine.Networking;
 using Cysharp.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Moralis.WebGL.Platform.Services
 {
@@ -40,7 +36,9 @@ namespace Moralis.WebGL.Platform.Services
         static List<string> allowedHeaders { get; } = new List<string>
         {
             "x-parse-application-id",
+            "x-parse-client-version",
             "x-parse-installation-id",
+            "x-parse-session-token",
             "content-type"
         };
         public UniversalWebClient() { }
@@ -71,16 +69,20 @@ namespace Moralis.WebGL.Platform.Services
             {
                 foreach (KeyValuePair<string, string> header in httpRequest.Headers)
                 {
-                    if (!String.IsNullOrWhiteSpace(header.Value) && allowedHeaders.Contains(header.Key.ToLower()))
+                    if (webRequest.GetRequestHeader(header.Key) != null) continue;
+
+                    if (!String.IsNullOrWhiteSpace(header.Value) &&
+                        allowedHeaders.Contains(header.Key.ToLower()))
                     {
                         webRequest.SetRequestHeader(header.Key, header.Value);
-                        Debug.Log($"Adding Header: {header.Key} value: {header.Value}");
                     }
                 }
             }
 
             try
             {
+                string x = JsonConvert.SerializeObject(webRequest);
+                Debug.Log($"\n\nWebRequest\n----------\v{x}\n\n");
                 await webRequest.SendWebRequest();
             }
             catch (Exception exp)
@@ -89,7 +91,7 @@ namespace Moralis.WebGL.Platform.Services
             }
 
             HttpStatusCode responseStatus = HttpStatusCode.BadRequest;
-            string responseText = null;
+            string responseText = "{}";
 
             if (Enum.IsDefined(typeof(HttpStatusCode), (int)webRequest.responseCode))
             {
@@ -103,7 +105,7 @@ namespace Moralis.WebGL.Platform.Services
             }
             else
             {
-                responseText = webRequest.downloadHandler.text;
+                responseText = webRequest.downloadHandler == null ? responseText : webRequest.downloadHandler.text;
             }
 
             result = new Tuple<HttpStatusCode, string>(responseStatus, responseText);

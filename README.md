@@ -15,7 +15,9 @@ This is moralis unity query where we call different api methods.
         print(result);
     }
 ```
+
 ## sending custom token with smart contract function with gas
+
 ```cs
  // sending custom erc20 specifying gas
  public async void sendCustomTokenwithcustomgas()
@@ -106,6 +108,7 @@ This is moralis unity query where we call different api methods.
 
     }
 ```
+
 ## Custom Objects
 
 ```cs
@@ -123,7 +126,9 @@ public class Character : MoralisObject
     }
 }
 ```
+
 ## Saving objects to the database
+
 ```cs
 public async void SaveObjectToDB()
     {
@@ -137,7 +142,9 @@ public async void SaveObjectToDB()
         await character.SaveAsync();
     }
 ```
+
 ## Retrieving from database
+
 ```cs
 public async void RetrieveObjectFromDB()
     {
@@ -149,6 +156,39 @@ public async void RetrieveObjectFromDB()
         }
     }
 ```
+
+## Sending raw ETH
+
+```cs
+public async void SendRawETH()
+    {
+        // Retrieve from address, the address used to athenticate the user.
+        MoralisUser user = await MoralisInterface.GetUserAsync();
+        int transferAmount = 10;
+        string fromAddress = user.authData["moralisEth"]["id"].ToString();
+        string toAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
+        // Create transaction request.
+        TransactionInput txnRequest = new TransactionInput()
+        {
+            Data = String.Empty,
+            From = fromAddress,
+            To = toAddress,
+            Value = new HexBigInteger(transferAmount)
+        };
+        try
+        {
+            // Execute the transaction.
+            string txnHash = await MoralisInterface.Web3Client.Eth.TransactionManager.SendTransactionAsync(txnRequest);
+
+            Debug.Log($"Transfered {transferAmount} WEI from {fromAddress} to {toAddress}.  TxnHash: {txnHash}");
+        }
+        catch (Exception exp)
+        {
+            Debug.Log($"Transfer of {transferAmount} WEI from {fromAddress} to {toAddress} failed! with error {exp}");
+        }
+    }
+```
+
 ## Fixing ipfs link for images
 
 ```cs

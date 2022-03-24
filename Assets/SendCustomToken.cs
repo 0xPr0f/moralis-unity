@@ -13,7 +13,7 @@ using UnityEngine;
 
 public class SendCustomToken : MonoBehaviour
 {
-    public string ABI;
+   public string ABI;
     public string NFt721ABI;
     public RunContractDto runContractDto;
    
@@ -39,7 +39,7 @@ public class SendCustomToken : MonoBehaviour
     string jsonresult = await f.SendTransactionAsync("0x37Ad540C876FceCf80090493F02068b115dDf8B6", playerAddress, 20);
     print(jsonresult);
 }
-
+   
 // sending custom erc20cc specifying gas
 public async void sendCustomTokenwithcustomgas()
 {      
@@ -98,7 +98,7 @@ public async void sendCustomTokenwithcustomgas()
     }
 
 // send an nft by calling a contract function
-public async void sendErc721()
+/*public async void sendErc721()
 {
         string NftTokenId = "1";
 
@@ -139,5 +139,5 @@ public void call()
   string result =  FixImageUri("ipfs://QmW5qHWBfE7yH8LFkeCmDNjBRPGEWqYDqjHgaLiQBDsuQg/4731.png");
     print(result);
 }
-
+    */
 }
