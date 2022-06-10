@@ -1,7 +1,7 @@
 # Moralis-Unity
 
 This is moralis unity query where we call different api methods.
-
+## project is currently deprecated and not using the latest version of the sdk, but should be back up in few weeks
 ## if this project / readme helped you, give it a star
 
 ## sending custom token with smart contract function without gas
