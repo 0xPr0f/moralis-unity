@@ -6,9 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/DemoScene.unity
-    guid: 40d4add513190a441bb79c9ffe0fff3a
+    path: Assets/Scene/DemoScene.unity
+    guid: 8167d899f715445cc845b66d15ec3411
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Scene/emptyTransition.unity
+    guid: 1fce73e076beb4ffa82bcbc5b8e224dc
+  - enabled: 1
+    path: Assets/Scene/Web3ApiMethods.unity
+    guid: 510f1de7f4e19494ebf7cd2cbe502dd4
+  - enabled: 1
+    path: Assets/Scene/ObjectandQueries.unity
+    guid: 229434feeadf2489f8daca00ac459562
+  - enabled: 1
+    path: Assets/Scene/Transactions.unity
+    guid: 298d0f9e072fe4fd4b9e625303113bbe
   m_configObjects: {}
