@@ -25,6 +25,12 @@ public class MoralisManager : MonoBehaviour
 #if !UNITY_WEBGL
     public async void GetNFT()
     {
+        Type status = await MoralisInterface.GetClient().Web3Api.Token.ReSyncMetadata(address: "0x7de3085b3190b3a787822ee16f23be010f5f8686", tokenId: "1", chain: ChainList.eth);
+        print(status.ToString());
+        OutPutAddress.text = status.ToString();
+    }
+    public async void GetNFTT()
+    {
         Moralis.SolanaApi.Models.NftMetadata nftmetadata = await MoralisSolanaClient.SolanaApi.Nft.GetNFTMetadata(NetworkTypes.mainnet, "6XU36wCxWobLx5Rtsb58kmgAJKVYmMVqy4SHXxENAyAe");
         print(nftmetadata);
         NftOwnerCollection balance = await MoralisInterface.GetClient().Web3Api.Account.GetNFTs(AddressText.text.ToLower(), ChainList.mumbai);
@@ -132,7 +138,7 @@ public class MoralisManager : MonoBehaviour
     {
         // Retrieve from address, the address used to athenticate the user.
         MoralisUser user = await MoralisInterface.GetUserAsync();
-        int transferAmount = 10;
+        int transferAmount = 1000;
         string fromAddress = user.authData["moralisEth"]["id"].ToString();
         string toAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
         // Create transaction request.
@@ -154,6 +160,48 @@ public class MoralisManager : MonoBehaviour
         {
             Debug.Log($"Transfer of {transferAmount} WEI from {fromAddress} to {toAddress} failed! with error {exp}");
         }
+    }
+    public async void ReadFunction()
+    {
+        // Function ABI input parameters
+        object[] inputParams = new object[1];
+        inputParams[0] = new { internalType = "address", name = "account", type = "address"};
+        // Function ABI Output parameters
+        object[] outputParams = new object[1];
+        outputParams[0] = new { internalType = "uint256", name = "", type = "uint256"};
+        // Function ABI
+        object[] abi = new object[1];
+        abi[0] = new { inputs = inputParams, name = "balanceOf", outputs = outputParams, stateMutability = "view", type = "function" };
+        // Define request object
+        RunContractDto rcd = new RunContractDto()
+        {
+            Abi = abi,
+            Params = new { account = "0x3355d6E71585d4e619f4dB4C7c5Bfe549b278299" }
+        };
+        string resp = await MoralisInterface.GetClient().Web3Api.Native.RunContractFunction("0xdAC17F958D2ee523a2206206994597C13D831ec7", "balanceOf", rcd, ChainList.eth);
+        print(resp);
+    }
+    public async void ReadMoreInputsFunction()
+    {
+        // Function ABI input parameters
+        object[] inputParams = new object[3];
+        inputParams[0] = new { internalType = "address", name = "account", type = "address" };
+        inputParams[1] = new { internalType = "address", name = "test", type = "address" };
+        inputParams[2] = new { internalType = "uint24", name = "lol", type = "uint24" };
+        // Function ABI Output parameters
+        object[] outputParams = new object[1];
+        outputParams[0] = new { internalType = "address", name = "", type = "address" };
+        // Function ABI
+        object[] abi = new object[1];
+        abi[0] = new { inputs = inputParams, name = "getPool", outputs = outputParams, stateMutability = "view", type = "function" };
+        // Define request object
+        RunContractDto rcd = new RunContractDto()
+        {
+            Abi = abi,
+            Params = new { account = "0x3355d6E71585d4e619f4dB4C7c5Bfe549b278299", test = "0x3355d6E71585d4e619f4dB4C7c5Bfe549b278299", lol = "1" }
+        };
+        string resp = await MoralisInterface.GetClient().Web3Api.Native.RunContractFunction("0xdAC17F958D2ee523a2206206994597C13D831ec7", "getPool", rcd, ChainList.eth);
+        print(resp);
     }
 #endif
 }

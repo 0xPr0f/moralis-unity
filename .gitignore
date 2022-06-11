@@ -1,37 +1,11 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Marketplace
-Explore
- 
-@0xPr0f 
-0xPr0f
-/
-NFTLounge
-Public
-Code
-Issues
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-NFTLounge/.gitignore
-@0xPr0f
-0xPr0f Initial commit
-Latest commit 70c96d5 24 days ago
- History
- 1 contributor
-37 lines (32 sloc)  438 Bytes
-   
 [Ll]ibrary/
 [Tt]emp/
 [Oo]bj/
 [Bb]uild/
+Packages/
 [Bb]uilds/
+Logs/
+ProjectSettings/
 Assets/AssetStoreTools*
 
 # Visual Studio cache directory
@@ -64,16 +38,3 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
-© 2022 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-Loading complete

@@ -1,20 +1,28 @@
+
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Numerics;
+using UnityEngine;
+#if !UNITY_WEBGL
 using System.Threading.Tasks;
 using Moralis.Platform.Objects;
 using Moralis.Web3Api.Models;
 using MoralisWeb3ApiSdk;
 using Nethereum.Contracts;
 using Nethereum.Hex.HexTypes;
-using UnityEngine;
-
+#else
+using MoralisWeb3ApiSdk;
+using Moralis.WebGL.Models;
+using Moralis.WebGL;
+#endif
 
 public class SendCustomToken : MonoBehaviour
 {
+#if !UNITY_WEBGL
    public string ABI;
     public string NFt721ABI;
+    public long value = 70000000000000000;
     public RunContractDto runContractDto;
    
    // public static NetworkVariable<FixedString64Bytes> PlayerName = new NetworkVariable<FixedString64Bytes>();
@@ -42,25 +50,47 @@ public class SendCustomToken : MonoBehaviour
    
 // sending custom erc20cc specifying gas
 public async void sendCustomTokenwithcustomgas()
-{      
-    MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984");
+{
+        MoralisUser user = await MoralisInterface.GetUserAsync();
+        string addr = user.authData["moralisEth"]["id"].ToString();
+        MoralisInterface.InsertContractInstance("LOL", ABI, "rinkeby", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984");
     // Set gas estimate
     HexBigInteger gas = new HexBigInteger(80000);
-    string recieverAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
-    string senderAddress = "0x37Ad540C876FceCf80090493F02068b115dDf8B6";
-    object[] pars = { recieverAddress, 2000 };
+   // string recieverAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
+    string senderAddress = addr;
+    object[] pars = { new HexBigInteger(80000000), 2000 };
     // Call the contract to claim the NFT reward.
     string resp = await MoralisInterface.SendEvmTransactionAsync("LOL", "rinkeby", "transfer", senderAddress, gas, new HexBigInteger("0x0"), pars);      
-    print(resp);
+
+        print(resp);
 }
-// transfer nft
- public async static Task TransferNft()
+    // sending custom erc20cc specifying gas
+    public async void MintNFT()
+    {
+        MoralisUser user = await MoralisInterface.GetUserAsync();
+        string addr = user.authData["moralisEth"]["id"].ToString();
+        MoralisInterface.InsertContractInstance("LOL", ABI, "eth", "0xECEB6268F75174887a233112fc8bB9F8149CE45D");
+        // Set gas estimate
+        HexBigInteger gas = new HexBigInteger(80000);
+        // string recieverAddress = "0xE1E891fE77ea200eaE62c9C9B3395443cc6ed7bE";
+        string senderAddress = addr;
+        object[] pars = {2};
+        // Call the contract to claim the NFT reward.
+        string resp = await MoralisInterface.SendEvmTransactionAsync("LOL", "eth", "mint", senderAddress, gas, new HexBigInteger(value), pars);
+        print(resp);
+    }
+
+
+
+    // transfer nft
+    public async static Task TransferNft()
     {
         string NftTokenId = "1";
-    // Need the user for the wallet address
-    MoralisUser user = await MoralisInterface.GetUserAsync();
+        // Need the user for the wallet address
 
+        MoralisUser user = await MoralisInterface.GetUserAsync();
         string addr = user.authData["moralisEth"]["id"].ToString();
+        //  string addr = user.authData["moralisEth"]["id"].ToString();
 
         BigInteger bi = 0;
 
@@ -140,4 +170,11 @@ public void call()
     print(result);
 }
     */
+#else
+
+   public void chain()
+    {
+        int chain = Web3GL.ChainId();
+    }
+#endif
 }
