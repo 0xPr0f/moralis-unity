@@ -215,6 +215,63 @@ public async void updateObjectInDB()
     }
 ```
 
+## signup unity
+
+```cs
+MoralisUser user = Moralis.Create<MoralisUser>();
+user.username = "myname";
+user.password = "mypass";
+user.email = "myemail@gmail.com"; // optional
+try {
+    // this signs the user up and doesnt log them in
+    await user.SignUpAsync();
+    // Hooray! Let them login the app now.
+}catch (Exception error) {
+    // Show the error message somewhere and let the user try again.
+    Debug.log("{0} Exception caught:", error);
+}
+
+```
+
+////////////////////////OR/////////////////////////////////
+
+```cs
+try {
+    // this signs the user up and doesnt log them in
+    await Moralis.SignUpAsync("myname", "mypass");
+    // Hooray! Let them login the app now.
+}catch (Exception error) {
+    // Show the error message somewhere and let the user try again.
+    Debug.log("{0} Exception caught:", error);
+}
+```
+
+## login unity
+
+```cs
+var user = await Moralis.LogInAsync("myname", "mypass");
+// Do stuff after successful login.
+```
+
+//////////////////////OR/////////////////////////////////
+
+```cs
+await user.LogInAsync();
+// this should be called where user is in scope and has username and passoword
+```
+
+## extra user stuff
+
+```cs
+ MoralisUser user = await Moralis.GetUserAsync();
+```
+
+## logout unity
+
+```cs
+ await Moralis.LogOutAsync();
+```
+
 ## Sending raw ETH
 
 ```cs

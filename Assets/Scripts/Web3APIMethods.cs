@@ -85,7 +85,7 @@ public class Web3APIMethods : MonoBehaviour
     public async void TokenBalance()
     {
         OutPutAddress.text = "Fetching your ERC 20 Token balances...";
-        List<Erc20TokenBalance> balance = await Moralis.Web3Api.Account.GetTokenBalances(AddressText.text, ChainList.eth);
+        List<Erc20TokenBalance> balance = await Moralis.Web3Api.Account.GetTokenBalances(AddressText.text, ChainList.bsc_testnet);
         OutPutAddress.text = "";
         for (int i = 0; i < balance.Count; i++)
         {
